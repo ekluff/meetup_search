@@ -12,20 +12,8 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
-  # Enable/disable caching. By default caching is disabled.
-  # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
-    config.action_controller.perform_caching = true
-
-    config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
-    }
-  else
-    config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
-  end
+  # use db no. 1 to avoid interfering with another app on machine
+  config.cache_store = :redis_store, "redis://localhost:6379/1/cache", { expires_in: 5.minutes }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
