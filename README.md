@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To use this app, you must have Sidekiq running alongside the Rails server. Follow these steps:
+  - bundle install
+  - run command `sidekiq` in terminal
 
-Things you may want to cover:
+This app uses a personal API key to authenticate against the Meetup API. Normally the encrypted credentials file would be checked into the repository. However, because you will be using your own key, you will be adding both the credentials file and the master key file. There is a good overview of the process here: https://medium.com/cedarcode/rails-5-2-credentials-9b3324851336
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To add new encrypted credentials:
+  - delete the existing file `config/credentials.yml.enc`
+  - log into your meetup.com account and retrieve your personal API key
+  - run the command `EDITOR=vim rails credentials:edit`--you may use another editor if you wish. This will add a new credentials file and generate a master key for your install of the app.
+  - after opening the credentials file, enter your personal key under meetup.api_key, in the yml format:
+    `meetup:
+      api_key: 12345`
