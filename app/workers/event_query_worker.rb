@@ -16,6 +16,8 @@ class EventQueryWorker
   private
 
   # this is necessary so that there is a key even if there is no input
+  # unlikely but possible
+  # validation on the form input would make this unnecessary
   def cache_key(search_string)
     "_key_#{search_string}"
   end
@@ -30,6 +32,9 @@ class EventQueryWorker
   # The docs say it is possible to view both upcoming and past events with the
   # value 'status=past,upcoming', however, this is incorrect. The endpoint appears to
   # require only one value or the other, despite what the docs say.
+  #
+  # One simple improvement would be to use a fields directive to only load the
+  # five fields we are using.
   def query_and_cache(search_string)
     uri = 'https://api.meetup.com/2/open_events'
     params = params(search_string)
@@ -40,6 +45,7 @@ class EventQueryWorker
     else
       # In a real app we would want to put care into error handling
       # Here the idea is to recognize this is a place that would need error handling
+      # because of the dependency on an external service over the open internet
       raise "Network error"
     end
   end
