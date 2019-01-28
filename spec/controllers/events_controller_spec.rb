@@ -54,9 +54,13 @@ RSpec.describe EventsController, type: :controller do
       it 'displays a list of 10 events' do
         # lack of a real model makes this a difficult test. It works correctly in the dev environment,
         # but in test there is a problem where it doesn't recognise the payload as the correct item to render
-        # into the event partial. Given more time it would not be too hard to solve.
+        # into the event partial. Given more time it would not be too hard to solve. In dev it is solved by
+        # specifying the name of the local variable in the template with the 'as' parameter to this render method:
+        # "render partial: 'event', collection: @events, as: :event"
       end
     end
-  end
 
+    # This controller and its corresponding views have enough complex pieces that they should have integration tests.
+    # Given more time I would add tests that walk through the flow of search->index->polling->results load->stop polling
+  end
 end
