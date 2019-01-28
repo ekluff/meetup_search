@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe EventsController, type: :controller do
   let(:params) do
-    { 'text_query': 'skiing' }
+    { 'search_string': 'skiing' }
   end
 
   describe 'POST #search' do
@@ -26,7 +26,6 @@ RSpec.describe EventsController, type: :controller do
         subject
 
         expect(flash[:error]).to eq('There was a problem processing your request. Please try again.')
-        expect(response.status).to eq(500)
       end
     end
   end
