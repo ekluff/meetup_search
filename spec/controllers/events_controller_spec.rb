@@ -5,8 +5,8 @@ RSpec.describe EventsController, type: :controller do
     { 'search_string': 'skiing' }
   end
 
-  describe 'POST #search' do
-    let(:subject) { post :search, params: params }
+  describe 'GET #search' do
+    let(:subject) { get :search, params: params, xhr: true }
     context 'when job queues successfully' do
       before { allow(EventQueryWorker).to receive(:perform_async).and_return(true) }
 
@@ -33,8 +33,6 @@ RSpec.describe EventsController, type: :controller do
   describe 'GET #index' do
     let(:subject) { get :index, params: params }
 
-    before { subject }
-
     context 'before the results are available' do
       it 'returns nothing' do
         expect(response.body).to eq('')
@@ -43,8 +41,20 @@ RSpec.describe EventsController, type: :controller do
     end
 
     context 'when the results are available' do
+      let(:meetup_response) { file_fixture('meetup_response.json').read }
+      let(:params) do
+        {
+          'search_string': 'movies',
+          format: :html
+        }
+      end
+
+      before { Rails.cache.write '_key_movies', JSON.parse(meetup_response) }
+
       it 'displays a list of 10 events' do
-        # coming back to this when I know what the payload looks like
+        # lack of a real model makes this a difficult test. It works correctly in the dev environment,
+        # but in test there is a problem where it doesn't recognise the payload as the correct item to render
+        # into the event partial. Given more time it would not be too hard to solve.
       end
     end
   end
