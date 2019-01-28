@@ -1,0 +1,18 @@
+<tr class='event-tile'>
+  <td>
+    <img src="<%= event['photo_url'] %>">
+
+  </td>
+  <td>
+    <%= event['name'] %>
+  </td>
+  <td>
+    <%= event['venue']['city'] if event['venue'] %>
+  </td>
+  <td>
+    <%= event['status'] %>
+  </td>
+  <td>
+    <%= event['group']['who'] %>
+  </td>
+</tr>
