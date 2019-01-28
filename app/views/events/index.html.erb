@@ -1,2 +1,19 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<h1>Meetup Search</h1>
+<br>
+<%= render partial: 'form' %>
+<br>
+
+<div id='loading-message'></div>
+
+<table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody id='events-list'></tbody>
+</table>
