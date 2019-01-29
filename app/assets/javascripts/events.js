@@ -9,13 +9,12 @@ function triggerPoll() {
     setTimeout(pollIndex, 5000);
   } else {
     $('#loading-message').empty();
+    // flash message may be gone but rails can be unpredictable
+    $('.flash-message').empty();
   }
 };
 
 function pollIndex() {
-  // not sure why this doesn't happen until the second time through this function
-  $('#loading-message').html('<p>loading...</p>');
-
   if ($('.event-tile').length===0) {
     $.ajax({
       url: 'events/index',
@@ -27,4 +26,7 @@ function pollIndex() {
   }
 };
 
-$( pollIndex() );
+$( function() {
+  $('#loading-message').html('<p>loading...</p>');
+  pollIndex();
+});
