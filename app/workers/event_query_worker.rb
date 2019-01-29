@@ -1,3 +1,5 @@
+# One improvement for this worker would be to move the actual API call out of the worker
+# and into a service which would then be called from here.
 class EventQueryWorker
   include Sidekiq::Worker
 
