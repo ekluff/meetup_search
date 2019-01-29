@@ -13,3 +13,6 @@ To add new encrypted credentials:
   - after opening the credentials file, enter your personal key under meetup.api_key, in the yml format:
     `meetup:
       api_key: 12345`
+
+Lastly, you must have Redis installed and running. See here: https://redis.io/topics/quickstart
+One easy option is to install always have redis running by using Homebrew's `brew services`.
