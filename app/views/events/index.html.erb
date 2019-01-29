@@ -15,5 +15,7 @@
         <th>Category</th>
       </tr>
     </thead>
-    <tbody id='events-list'></tbody>
+    <tbody id='events-list'>
+      <%= render partial: 'event', collection: @events, as: :event %>
+    </tbody>
 </table>
